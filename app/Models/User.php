@@ -30,4 +30,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
     ];
+
+    public function dailysalaries()
+    {
+        return $this->hasMany(DailySalary::class);
+    }
+
+    public function monthlysalaries()
+    {
+        return $this->hasOne(MonthlySalary::class);
+    }
 }

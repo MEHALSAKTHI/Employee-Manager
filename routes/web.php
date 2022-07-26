@@ -16,6 +16,7 @@
 
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\UserDataController;
+use App\Http\Controllers\SalaryController;
 
 $router->get('/', function () use ($router) {
     return $router->app->version();
@@ -48,7 +49,19 @@ $router->get('/manage/{id}', 'UserDataController@manage');
 
 $router->post('/update/{id}', 'UserDataController@update');
 
-
 $router->get('/delete/{id}', 'UserDataController@delete');
+
+$router->get('/msal/{id}', 'UserDataController@msalarycalc');
+
+$router->get('/msal/{id}', 'UserDataController@msalarycalc');
+
+
+$router->get('/attendance', 'SalaryController@att_marker');
+
+
+
+
+
+
 
 

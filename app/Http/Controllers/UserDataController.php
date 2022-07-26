@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\DailySalary;
+use App\Models\MonthlySalary;
 use App\Models\User;
 
 use Illuminate\Support\Facades\DB;
@@ -43,7 +46,7 @@ class UserDataController extends Controller
         $tuser->email = $request->email;
         $tuser->experience = $request->experience;
         $tuser->save();
-        return redirect('/create');
+        return redirect('/show');
     }
 
     public function manage($id)
@@ -66,6 +69,24 @@ class UserDataController extends Controller
     {
         $tuser = User::where('id', $id)->delete();
         return redirect('/show');
+    }
+
+
+    public function msalarycalc($id)
+    {
+        $dailysalaries = User::find($id)->dailysalaries ;
+        $net_sal=0;
+        foreach ($dailysalaries as $dailysalary) {
+            $t_sal=(int)$dailysalary->fixed_salary+(int)$dailysalary->incentives;
+            $net_sal=$t_sal+$net_sal;
+        }
+
+        echo ($net_sal);
+
+        $msal = new MonthlySalary();
+        $msal->user_id=$id;
+        $msal->total_salary=$net_sal;
+        $msal->save();
     }
 
     public function __invoke(Request $request)
