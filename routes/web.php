@@ -55,8 +55,9 @@ $router->get('/msal/{id}', 'UserDataController@msalarycalc');
 
 $router->get('/msal/{id}', 'UserDataController@msalarycalc');
 
-
 $router->get('/attendance', 'SalaryController@att_marker');
+
+$router->post('/attstore', 'SalaryController@att_store');
 
 
 
