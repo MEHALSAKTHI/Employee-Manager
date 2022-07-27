@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DailySalary;
+use App\Models\MonthlySalary;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -23,6 +25,7 @@ class SalaryController extends Controller
     public function att_store(Request $request)
     {
         //return "hi";
+        echo $request;
         $users = User::all();
         echo $request->at_date;
         foreach ($users as $user){
@@ -32,22 +35,29 @@ class SalaryController extends Controller
             echo "<br><br>";
             $status=$request->$qid;
             echo "--".$status."-- ";
-            $dsal=0;
             $fsal=0;
             $fsal=(int)$user->experience*1000;
+
             if($status == '1'){
+                $dsal=new DailySalary();
+                $dsal->user_id=$user->id;
+                $dsal->fixed_salary=$fsal;
                 echo $request->$iid;
                 if($request->$iid){
-                    $dsal=(int)$request->$iid +$fsal;
+                    //$dsal=(int)$request->$iid +$fsal;
+                    $dsal->incentives=$request->$iid;
                 }
                 else{
-                    $dsal=$fsal;
+                    $dsal->incentives=0;
                 }
+                $dsal->save();
+                echo "Saved";
+                echo "<br>";
             }
-            echo $dsal;
-            echo "<br>";
-        }
 
+            //
+        }
+        return redirect('/attendance');
         //return redirect('/show');
     }
 

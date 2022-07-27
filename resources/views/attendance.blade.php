@@ -26,7 +26,7 @@
                             <p>Mark presence of employees:</p>
                             <form action="/attstore" method="POST">
                                 <label for="date">Date of Attendance:</label>
-                                <input type="date" id="at_date" name="at_date"><br><br>
+                                <input type="date" id="at_date" name="at_date" required><br><br>
                                 <table class="table">
                                     <thead>
                                     <tr>

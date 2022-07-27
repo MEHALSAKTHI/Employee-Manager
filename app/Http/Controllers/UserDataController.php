@@ -82,11 +82,18 @@ class UserDataController extends Controller
         }
 
         echo ($net_sal);
-
-        $msal = new MonthlySalary();
-        $msal->user_id=$id;
-        $msal->total_salary=$net_sal;
-        $msal->save();
+        if(MonthlySalary::where('user_id',$id)->first()){
+            $msal = MonthlySalary::where('user_id',$id)->first();
+            $msal->user_id=$id;
+            $msal->total_salary=$net_sal;
+            $msal->save();
+        }
+        else{
+            $msal = new MonthlySalary();
+            $msal->user_id=$id;
+            $msal->total_salary=$net_sal;
+            $msal->save();
+        }
     }
 
     public function __invoke(Request $request)
