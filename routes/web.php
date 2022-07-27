@@ -22,21 +22,6 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-// $router->get('/dataform', function () use ($router) {
-//     $users = DB::select('select * from users');
-//     // return $users;
-//     return view('dataform', ['users'=>$users]);
-//     // DB::table('users')->insert([
-//     //     'name' => 'mehal',
-//     //     'experience' => '1',
-//     //     'email' => 'kayla@example.com'
-//     // ]);
-//     //return "Inserted";
-
-// });
-// $router->get('/dataform', 'UserDataController@show');
-
-
 $router->get('/index', 'UserDataController@index');
 
 $router->get('/show', 'UserDataController@show');
