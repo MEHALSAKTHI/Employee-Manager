@@ -51,11 +51,13 @@ $router->post('/update/{id}', 'UserDataController@update');
 
 $router->get('/delete/{id}', 'UserDataController@delete');
 
-$router->get('/msal/{id}', 'UserDataController@msalarycalc');
+$router->get('/msal', 'UserDataController@totalmsalarycalc');
 
 $router->get('/msal/{id}', 'UserDataController@msalarycalc');
 
 $router->get('/attendance', 'SalaryController@att_marker');
+
+$router->get('/adminvalidate', 'SalaryController@adminvalidate');
 
 $router->post('/attstore', 'SalaryController@att_store');
 

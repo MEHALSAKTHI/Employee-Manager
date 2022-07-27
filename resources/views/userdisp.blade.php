@@ -7,21 +7,24 @@
         <title>Employee Details</title>
     </head>
     <body>
+        {{--  {{ $msals }}  --}}
         {{--  {{ $users }}  --}}
-        <div class="container my-3 mx-4">
+        <div class="container my-5 mx-4">
             <div>
                 <h1 class="text-left d-inline">Employee details Manager</h1>
-                <div class="text-right">
+                <div class="text-right mr-5">
                     <a class="btn btn-success mt-2" href="create">Add Employee</a>
-                        {{--  <button class="btn btn-light">Home</button>
-                        <button class="btn btn-light">View</button>
-                        <button class="btn btn-light">Create</button>  --}}
+                    <a class="btn btn-primary mx-1 mt-2 text-light" href="/attendance">
+                        Mark Attendance
+                    </a>
                 </div>
             </div>
             <div class="card my-5 mx-5 ">
                 <h5 class="card-header">Employee Details</h5>
                 <div class=" mx-4 my-2">
                     <p class="font-weight-bold m-3">Total No. of employees: {{ sizeof($users) }}</p>
+                    <a class="btn btn-info mt-1 ml-3" href="msal">Calculate Monthly Salary</a>
+                    </div>
                     <div class="m-3">
                         <table class="table">
                             <thead>
@@ -31,6 +34,7 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Experience</th>
                                 <th scope="col">Email</th>
+                                <th scope="col">Monthly Salary (AON)</th>
                                 <th scope="col" class="text-center">Actions</th>
                             </tr>
                             </thead>
@@ -53,7 +57,19 @@
                                         <td>{{ $user->experience }} yrs</td>
                                     @endif
                                     <td>{{ $user -> email }}</td>
-                                    <td class="text-center"><a class="btn btn-secondary " href="manage/{{ $user->id }}">Manage</a></td>
+                                    <td>
+                                        @foreach ($msals as $msal)
+                                            @php
+                                            if ($msal->user_id==$user->id){
+                                                echo "$msal->total_salary";
+                                            }
+                                            @endphp
+                                        @endforeach
+                                    </td>
+                                    <td class="text-center">
+                                        <a class="btn btn-secondary " href="manage/{{ $user->id }}">Manage</a>
+                                        <a class="btn btn-info " href="msal/{{ $user->id }}">Calculate Salary</a>
+                                    </td>
                                 </tr>
                                 @endforeach
 

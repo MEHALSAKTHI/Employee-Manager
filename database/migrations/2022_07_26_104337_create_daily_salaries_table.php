@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('user_id');
             $table->string('fixed_salary');
             $table->string('incentives');
+            $table->date('saldate');
             $table->timestamps();
         });
     }

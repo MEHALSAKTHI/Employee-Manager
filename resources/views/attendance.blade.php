@@ -15,15 +15,14 @@
                 </div>
             </div>
             <div class="card my-5 mx-5">
-                <h5 class="card-header">Enter Employee Details</h5>
+                <h5 class="card-header">Mark presence of employees:</h5>
                 <div class="container">
                     <div class="row">
 
                       {{--  <div class="col p-4">
                       </div>  --}}
-                      <div class="col-8 pt-5" >
-                        <div class="m-3 px-3 mt-5" >
-                            <p>Mark presence of employees:</p>
+                      <div class="col-8 pt-3" >
+                        <div class="m-3 px-3 mt-1" >
                             <form action="/attstore" method="POST">
                                 <label for="date">Date of Attendance:</label>
                                 <input type="date" id="at_date" name="at_date" required><br><br>
@@ -33,7 +32,7 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Id</th>
                                         <th scope="col">Name</th>
-                                        <th scope="col" class="text-center">P  A</th>
+                                        <th scope="col" class="text-center">P &nbsp A</th>
                                         <th scope="col">Incentive</th>
 
                                     </tr>
@@ -66,6 +65,10 @@
                                 <button type="submit" class="btn btn-success ">Submit</button>
                             </form>
                         </div>
+                      </div>
+                      <div class="col p-4 mt-5">
+                        {{--  <img class="img-fluid " src="{{ asset('emp.png') }}">  --}}
+                        <img class="img-fluid " src="/images/att.jpg">
                       </div>
                     </div>
                 </div>
