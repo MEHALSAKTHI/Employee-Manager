@@ -18,13 +18,13 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\UserDataController;
 use App\Http\Controllers\SalaryController;
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
 
-$router->get('/index', 'UserDataController@index');
+// $router->get('/', function () use ($router) {
+//     return $router->app->version();
+// });
 
-$router->get('/show', 'UserDataController@show');
+
+$router->get('/', 'UserDataController@show');
 
 $router->get('/create', 'UserDataController@create');
 
@@ -42,10 +42,35 @@ $router->get('/msal/{id}', 'UserDataController@msalarycalc');
 
 $router->get('/attendance', 'SalaryController@att_marker');
 
-$router->get('/adminvalidate', 'SalaryController@adminvalidate');
+#$router->get('/adminvalidate', 'SalaryController@adminvalidate');
 
 $router->post('/attstore', 'SalaryController@att_store');
 
+// $router->get('/attendance/{date}', 'SalaryController@att_manage');
+
+$router->group(['prefix' => 'v1'], function () use ($router) {
+    $router->get('/', 'UserDataController@show');
+
+    $router->get('/create', 'UserDataController@create');
+
+    $router->post('/store', 'UserDataController@store');
+
+    $router->get('/manage/{id}', 'UserDataController@manage');
+
+    $router->post('/update/{id}', 'UserDataController@update');
+
+    $router->get('/delete/{id}', 'UserDataController@delete');
+
+    $router->get('/msal', 'UserDataController@totalmsalarycalc');
+
+    $router->get('/msal/{id}', 'UserDataController@msalarycalc');
+
+    $router->get('/attendance', 'SalaryController@att_marker');
+
+    #$router->get('/adminvalidate', 'SalaryController@adminvalidate');
+
+    $router->post('/attstore', 'SalaryController@att_store');
+});
 
 
 

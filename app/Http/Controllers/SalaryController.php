@@ -22,17 +22,25 @@ class SalaryController extends Controller
         return view('attendance', compact('users'));
     }
 
-    public function adminvalidate()
-    {
-        return "admin validate page";
-        return view('attendance', compact('users'));
-    }
+    // public function att_manage($date)
+    // {
+    //     $users = User::all();
+    //     $dailysalaries = DailySalary::where('saldate',$date);
+    //     return view('attendancemanage', compact('users', 'dailysalaries'));
+    // }
 
     public function att_store(Request $request)
     {
         //return "hi";
         echo $request;
         $users = User::all();
+
+        //$dsalaries=DailySalary::all();
+        // foreach($dsalaries as $dsalary){
+        //     if($dsalary->saldate == $request->at_date){
+        //         return redirect('/attendance')->withErrors('Attendance for the day has been marked already');
+        //     }
+        // }
         echo $request->at_date;
         foreach ($users as $user){
             $qid="pr".$user->id;
@@ -57,12 +65,19 @@ class SalaryController extends Controller
                 else{
                     $dsal->incentives=0;
                 }
+                // try{
+                //     $dsal->save();
+                // }
+                // catch(\Exception $e){
+                //     // return redirect('/attendance')->withError($e->getMessage());
+                //     //return back()->withError($exception->getMessage())->withInput();
+                // }
                 $dsal->save();
+                return redirect('/attendance');
+
                 echo "Saved";
                 echo "<br>";
             }
-
-            //
         }
         return redirect('/attendance');
         //return redirect('/show');

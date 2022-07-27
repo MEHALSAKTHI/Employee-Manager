@@ -25,59 +25,59 @@
                     <p class="font-weight-bold m-3">Total No. of employees: {{ sizeof($users) }}</p>
                     <a class="btn btn-info mt-1 ml-3" href="msal">Calculate Monthly Salary</a>
                     </div>
-                    <div class="m-3">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Id</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Experience</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Monthly Salary (AON)</th>
-                                <th scope="col" class="text-center">Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                    $ctr=0;
-                                @endphp
-                                @foreach ($users as $user)
-                                <tr class="vertical-align: middle">
-                                    @php
-                                        $ctr=$ctr+1;
-                                    @endphp
-                                    <th scope="row" >{{ $ctr}}</th>
-                                    <td>{{ $user->id }}</th>
-                                    <td>{{ $user->name }}</td>
-
-                                    @if($user->experience == 1)
-                                        <td>{{ $user->experience }} yr</td>
-                                    @else
-                                        <td>{{ $user->experience }} yrs</td>
-                                    @endif
-                                    <td>{{ $user -> email }}</td>
-                                    <td>
-                                        @foreach ($msals as $msal)
-                                            @php
-                                            if ($msal->user_id==$user->id){
-                                                echo "$msal->total_salary";
-                                            }
-                                            @endphp
-                                        @endforeach
-                                    </td>
-                                    <td class="text-center">
-                                        <a class="btn btn-secondary " href="manage/{{ $user->id }}">Manage</a>
-                                        <a class="btn btn-info " href="msal/{{ $user->id }}">Calculate Salary</a>
-                                    </td>
+                        <div class="p-3 ">
+                        <div class="table-responsive ">
+                            <table class="table text-center">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Experience</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Monthly Salary (AON)</th>
+                                    <th scope="col" class="text-center">Actions</th>
                                 </tr>
-                                @endforeach
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $ctr=0;
+                                    @endphp
+                                    @foreach ($users as $user)
+                                    <tr class="vertical-align: middle">
+                                        @php
+                                            $ctr=$ctr+1;
+                                        @endphp
+                                        <th scope="row" >{{ $ctr}}</th>
+                                        <td>{{ $user->id }}</th>
+                                        <td>{{ $user->name }}</td>
 
-                            </tbody>
-                        </table>
+                                        @if($user->experience == 1)
+                                            <td>{{ $user->experience }} yr</td>
+                                        @else
+                                            <td>{{ $user->experience }} yrs</td>
+                                        @endif
+                                        <td>{{ $user -> email }}</td>
+                                        <td>
+                                            @foreach ($msals as $msal)
+                                                @php
+                                                if ($msal->user_id==$user->id){
+                                                    echo "$msal->total_salary";
+                                                }
+                                                @endphp
+                                            @endforeach
+                                        </td>
+                                        <td class="text-center">
+                                            <a class="btn btn-secondary my-1" href="manage/{{ $user->id }}">Manage</a>
+                                            <a class="btn btn-info my-1" href="msal/{{ $user->id }}">Calculate Salary</a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </body>

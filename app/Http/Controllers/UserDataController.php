@@ -43,7 +43,7 @@ class UserDataController extends Controller
         $tuser->email = $request->email;
         $tuser->experience = $request->experience;
         $tuser->save();
-        return redirect('/show');
+        return redirect('/');
     }
 
     public function manage($id)
@@ -59,13 +59,13 @@ class UserDataController extends Controller
         $tuser->email = $request->email;
         $tuser->experience = $request->experience;
         $tuser->save();
-        return redirect('/show');
+        return redirect('/');
     }
 
     public function delete($id)
     {
         $tuser = User::where('id', $id)->delete();
-        return redirect('/show');
+        return redirect('/');
     }
 
     public function totalmsalarycalc()
@@ -94,10 +94,8 @@ class UserDataController extends Controller
         }
         }
 
-        return redirect('/show');
+        return redirect('/');
     }
-
-
 
     public function msalarycalc($id)
     {
@@ -120,7 +118,7 @@ class UserDataController extends Controller
             $msal->total_salary=$net_sal;
             $msal->save();
         }
-        return redirect('/show');
+        return redirect('/');
     }
 
     public function __invoke(Request $request)

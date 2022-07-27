@@ -11,7 +11,7 @@
             <div>
                 <h1 class="text-left d-inline">Employee details Manager</h1>
                 <div class="text-right">
-                    <a class="btn btn-secondary mt-2" href="show">View All Employees</a>
+                    <a class="btn btn-secondary mt-2" href="/">View All Employees</a>
                         {{--  <button class="btn btn-light">Home</button>
                         <button class="btn btn-light">View</button>
                         <button class="btn btn-light">Create</button>  --}}

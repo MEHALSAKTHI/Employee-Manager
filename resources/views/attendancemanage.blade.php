@@ -5,7 +5,6 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <title>Employee Details</title>
-        
     </head>
     <body>
         <div class="container my-3 mx-4">
@@ -16,20 +15,12 @@
                 </div>
             </div>
             <div class="card my-5 mx-5">
-
-                {{--  @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif  --}}
-
                 <h5 class="card-header">Mark presence of employees:</h5>
                 <div class="container">
                     <div class="row">
+
+                      {{--  <div class="col p-4">
+                      </div>  --}}
                       <div class="col-8 pt-3" >
                         <div class="m-3 px-3 mt-1" >
                             <form action="/attstore" method="POST">
@@ -50,7 +41,19 @@
                                         @php
                                             $ctr=0;
                                         @endphp
+                                        {{ $dailysalaries }}
                                         @foreach ($users as $user)
+                                        @foreach ($dailysalaries as $ds)
+                                                        echo $ds;
+                                                        @php
+                                                            if($user->id==$ds->user_id){
+                                                                echo "1";
+                                                            }
+                                                            else{
+                                                                echo "0";
+                                                            }
+                                                        @endphp
+                                                    @endforeach
                                         <tr class="vertical-align: middle">
                                             @php
                                                 $ctr=$ctr+1;
@@ -59,8 +62,11 @@
                                             <td>{{ $user->id }}</th>
                                             <td>{{ $user->name }}</td>
 
+
+
                                             <td class="text-center">
-                                                <input type="radio" required class="mx-1" id="pr{{ $user->id }}" name="pr{{ $user->id }}" value="1">
+
+                                                <input type="radio" required class="mx-1" " id="pr{{ $user->id }}" name="pr{{ $user->id }}" value="1">
                                                 <input type="radio" required id="pr{{ $user->id }}" class="mx-1" name="pr{{ $user->id }}" value="0">
                                             </td>
                                             <td>
@@ -68,7 +74,6 @@
                                             </td>
                                         </tr>
                                         @endforeach
-
 
                                     </tbody>
                                 </table>
