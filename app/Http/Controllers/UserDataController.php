@@ -32,11 +32,8 @@ class UserDataController extends Controller
     public function show()
     {
         $users = User::all();
-        return view('userdisp', compact('users'));
-        foreach ($users as $user){
-            echo $user->name;
-            echo "<br>";
-        }
+        $msals = MonthlySalary::all();
+        return view('userdisp', compact('users','msals'));
     }
 
     public function store(Request $request)
@@ -71,6 +68,36 @@ class UserDataController extends Controller
         return redirect('/show');
     }
 
+    public function totalmsalarycalc()
+    {
+        $users = User::all();
+        foreach ($users as $user){
+            $id=$user->id;
+            $dailysalaries = User::find($id)->dailysalaries ;
+            $net_sal=0;
+            foreach ($dailysalaries as $dailysalary) {
+                $t_sal=(int)$dailysalary->fixed_salary+(int)$dailysalary->incentives;
+                $net_sal=$t_sal+$net_sal;
+            }
+            //echo ($net_sal);
+            if(MonthlySalary::where('user_id',$id)->first()){
+                $msal = MonthlySalary::where('user_id',$id)->first();
+                $msal->user_id=$id;
+                $msal->total_salary=$net_sal;
+                $msal->save();
+            }
+            else{
+                $msal = new MonthlySalary();
+                $msal->user_id=$id;
+                $msal->total_salary=$net_sal;
+                $msal->save();
+        }
+        }
+
+        return redirect('/show');
+    }
+
+
 
     public function msalarycalc($id)
     {
@@ -80,8 +107,7 @@ class UserDataController extends Controller
             $t_sal=(int)$dailysalary->fixed_salary+(int)$dailysalary->incentives;
             $net_sal=$t_sal+$net_sal;
         }
-
-        echo ($net_sal);
+        //echo ($net_sal);
         if(MonthlySalary::where('user_id',$id)->first()){
             $msal = MonthlySalary::where('user_id',$id)->first();
             $msal->user_id=$id;
@@ -94,6 +120,7 @@ class UserDataController extends Controller
             $msal->total_salary=$net_sal;
             $msal->save();
         }
+        return redirect('/show');
     }
 
     public function __invoke(Request $request)

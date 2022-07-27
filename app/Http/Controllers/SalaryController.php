@@ -22,6 +22,12 @@ class SalaryController extends Controller
         return view('attendance', compact('users'));
     }
 
+    public function adminvalidate()
+    {
+        return "admin validate page";
+        return view('attendance', compact('users'));
+    }
+
     public function att_store(Request $request)
     {
         //return "hi";
@@ -41,6 +47,7 @@ class SalaryController extends Controller
             if($status == '1'){
                 $dsal=new DailySalary();
                 $dsal->user_id=$user->id;
+                $dsal->saldate=$request->at_date;
                 $dsal->fixed_salary=$fsal;
                 echo $request->$iid;
                 if($request->$iid){
