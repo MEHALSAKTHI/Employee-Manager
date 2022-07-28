@@ -87,7 +87,7 @@ class SalaryController extends Controller
             foreach ($users as $user){
                 if($nm == $user->name){
                     $status=0;
-                    if($atval['pr']){
+                    if($atval['pr']==1){
                         $status=1;
                     }
 

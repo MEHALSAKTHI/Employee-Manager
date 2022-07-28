@@ -48,10 +48,20 @@
                             // loop over each table row (tr)
                             $("#at_table tbody tr").each(function(){
                                     var currentRow=$(this);
-
+                                    var prstatus=0;
                                     var nameval=currentRow.find("td:eq(1) ").text();
-                                    var prstatus=currentRow.find("td:eq(2) input[type='text']").val()
-                                    var incentives=currentRow.find("td:eq(3) input[type='text']").val()
+                                    {{--  var prstatus=currentRow.find("td:eq(2) input[type='text']").val();  --}}
+                                    var incentives=currentRow.find("td:eq(3) input[type='text']").val();
+                                    var prstatus1=currentRow.find("td:eq(2) input[type='checkbox']").val(function(){
+                                        if($(this).prop("checked") == true){
+                                            prstatus=1;
+                                        }
+                                        else if($(this).prop("checked") == false){
+                                            prstatus=0;
+                                        }
+                                    });
+
+                                    console.log(prstatus);
 
                                     var obj={};
                                     obj.name=nameval;
@@ -102,9 +112,26 @@
                             <div class="alert alert-success " id="alert" style="display:none"> Attendance Added Successfully</div>
                             <div class="alert alert-warning  " id="nalert1" style="display:none"> Choose the Date</div>
                             <div class="alert alert-danger  " id="nalert2" style="display:none"> Attendance Already marked</div>
-                            <form action="/attstore" method="POST">
+
+
+                            {{--  <script>
+                                // Get relevant element
+                                function chk(){
+                                    checkBox = document.getElementById('takenBefore');
+                                    // Check if the element is selected/checked
+                                    if(checkBox.checked) {
+                                        // Respond to the result
+                                        alert("Checkbox checked!");
+                                    }
+                                }
+                            </script>  --}}
+
+                            <form action="/attstore" class="d-inline" method="POST">
                                 <label for="date">Date of Attendance:</label>
-                                <input type="date" id="at_date" name="at_date" required><br><br>
+                                <input type="date" id="at_date" name="at_date" required>
+
+
+                                <br><br>
                                 <table class="table" name="at_table" id="at_table">
                                     <thead>
                                     <tr>
@@ -129,9 +156,9 @@
                                             <td>{{ $user->name }}</td>
 
                                             <td class="text-center">
-                                                <input type="text" id="pr{{ $user->id }}" class="w-50 text-center" required name="pr{{ $user->id }}">
+                                                {{--  <input type="text" id="pr{{ $user->id }}" class="w-50 text-center" required name="pr{{ $user->id }}">  --}}
                                                 {{--  <input type="range" style="width:40px" id="pr{{ $user->id }}" name="pr{{ $user->id }}" min="0" max="1">  --}}
-                                                {{--  <input type="checkbox" id="pr{{ $user->id }}" name="pr{{ $user->id }}" value="1">  --}}
+                                                <input type="checkbox" id="pr{{ $user->id }}" name="pr{{ $user->id }}" value="1">
                                                 {{--  <input type="radio" required class="mx-1" id="pr{{ $user->id }}" name="pr{{ $user->id }}" value="1">
                                                 <input type="radio" required id="pr{{ $user->id }}" class="mx-1" name="pr{{ $user->id }}" value="0">  --}}
                                             </td>
@@ -145,8 +172,19 @@
                                     </tbody>
                                 </table>
 
+                                <button type="reset" class="btn btn-primary text-light" href="/attendance" >
+                                    <div class="pt-2 d-inline">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" fill="currentColor" class="bi bi-arrow-clockwise " viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                                            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                                            </svg>
+                                    </div>
+                                    &nbspRefresh Entry
+                                </button >
+
                             </form>
                             <button class="btn btn-success" id="ajaxSubmit">Submit</button>
+
                         </div>
                       </div>
                       <div class="col p-4 mt-5">

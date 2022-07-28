@@ -41,7 +41,7 @@
                 <h5 class="card-header">Employee Details</h5>
                 <div class=" mx-4 my-2">
                     <p class="font-weight-bold m-3">Total No. of employees: {{ sizeof($users) }}</p>
-                    <a class="btn btn-info mt-1 ml-3" href="msal">Calculate Cummul. Salary</a>
+                    <a class="btn btn-info mt-1 ml-3" href="msal">Calculate Cumm. Salary</a>
                     <script>
                         function printDiv() {
                             //Get the HTML of div
@@ -79,7 +79,7 @@
                                     <th scope="col">Name</th>
                                     <th scope="col">Experience</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Cummul. Salary (AON)</th>
+                                    <th scope="col">Cumm. Salary (AON)</th>
                                     <th scope="col" class="text-center">Actions</th>
                                 </tr>
                                 </thead>
