@@ -32,7 +32,7 @@
 
                 <div class="container">
 
-                    <form id="myForm">
+                    {{--  <form id="myForm">
                        <div class="form-group">
                          <label for="name">Name:</label>
                          <input type="text" class="form-control" id="name">
@@ -46,7 +46,7 @@
                           <input type="text" class="form-control" id="price">
                         </div>
                        <button class="btn btn-primary" id="ajaxSubmit">Submit</button>
-                     </form>
+                     </form>  --}}
                  </div>
                  <script src="http://code.jquery.com/jquery-3.3.1.min.js"
                           integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -55,27 +55,57 @@
                  <script>
                     jQuery(document).ready(function(){
                        jQuery('#ajaxSubmit').click(function(e){
-                          e.preventDefault();
+                            e.preventDefault();
+                            jQuery('.alert').hide();
+                            jQuery('.nalert').hide();
+                            var arrData=[];
+                            // loop over each table row (tr)
+                            $("#at_table tbody tr").each(function(){
+                                    var currentRow=$(this);
+
+                                    var nameval=currentRow.find("td:eq(1) ").text();
+                                    var prstatus=currentRow.find("td:eq(2) input[type='text']").val()
+                                    var incentives=currentRow.find("td:eq(3) input[type='text']").val()
+
+                                    var obj={};
+                                    obj.name=nameval;
+                                    obj.pr=prstatus;
+                                    obj.inc=incentives
+
+                                    arrData.push(obj);
+                            });
+                                //alert(arrData);
+                            //console.log(arrData);
+
+
+
                           $.ajaxSetup({
                              headers: {
                                  'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                              }
                          });
-                          jQuery.ajax({
-                             url: "{{ url('/v2/ajaxtest') }}",
+
+                        jQuery.ajax({
+                             url: "{{ url('/v2/attstore') }}",
                              method: 'post',
                              data: {
 
-
-                                name: jQuery('#pr1').val(),
-                                type: jQuery('#inc1').val(),
-                                
+                                at_date: jQuery('#at_date').val(),
+                                at_details: arrData
                                 //price: jQuery('#price').val()
                              },
                              success: function(result){
                                 console.log(result);
-                                jQuery('.alert').show();
-                                jQuery('.alert').html(result.success);
+                                if(result=="Error1"){
+                                    jQuery('#nalert1').show();
+                                }
+                                else if(result=="Error2"){
+                                    jQuery('#nalert2').show();
+                                }
+                                else{
+                                    jQuery('#alert').show();
+                                }
+                                //jQuery('.alert').html(result.success);
                              }});
                           });
                        });
@@ -99,19 +129,20 @@
                       <div class="col-8 pt-3" >
 
                         <div class="m-3 px-3 mt-1" >
-                            <div class="alert alert-success mr-5" style="display:none"> Attendance Added Successfully</div>
+                            <div class="alert alert-success " id="alert" style="display:none"> Attendance Added Successfully</div>
+                            <div class="alert alert-warning  " id="nalert1" style="display:none"> Choose the Date</div>
+                            <div class="alert alert-danger  " id="nalert2" style="display:none"> Attendance Already marked</div>
                             <form action="/attstore" method="POST">
                                 <label for="date">Date of Attendance:</label>
                                 <input type="date" id="at_date" name="at_date" required><br><br>
-                                <table class="table">
+                                <table class="table" name="at_table" id="at_table">
                                     <thead>
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Id</th>
                                         <th scope="col">Name</th>
-                                        <th scope="col" class="text-center">A &nbsp P</th>
+                                        <th scope="col" class="text-center">Present (any key)</th>
                                         <th scope="col">Incentive</th>
-
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -128,12 +159,14 @@
                                             <td>{{ $user->name }}</td>
 
                                             <td class="text-center">
-                                                <input type="range" style="width:40px" id="pr{{ $user->id }}" name="pr{{ $user->id }}" min="0" max="1">
+                                                <input type="text" id="pr{{ $user->id }}" class="w-50 text-center" required name="pr{{ $user->id }}">
+                                                {{--  <input type="range" style="width:40px" id="pr{{ $user->id }}" name="pr{{ $user->id }}" min="0" max="1">  --}}
+                                                {{--  <input type="checkbox" id="pr{{ $user->id }}" name="pr{{ $user->id }}" value="1">  --}}
                                                 {{--  <input type="radio" required class="mx-1" id="pr{{ $user->id }}" name="pr{{ $user->id }}" value="1">
                                                 <input type="radio" required id="pr{{ $user->id }}" class="mx-1" name="pr{{ $user->id }}" value="0">  --}}
                                             </td>
                                             <td>
-                                               <input type="text" id="inc{{ $user->id }}" name="inc{{ $user->id }}">
+                                               <input type="text" id="inc{{ $user->id }}" class="w-75 text-center" name="inc{{ $user->id }}">
                                             </td>
                                         </tr>
                                         @endforeach
@@ -141,8 +174,9 @@
 
                                     </tbody>
                                 </table>
-                                <button type="submit" class="btn btn-success ">Submit</button>
+
                             </form>
+                            <button class="btn btn-success" id="ajaxSubmit">Submit</button>
                         </div>
                       </div>
                       <div class="col p-4 mt-5">

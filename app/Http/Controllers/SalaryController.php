@@ -6,6 +6,7 @@ use App\Models\DailySalary;
 use App\Models\MonthlySalary;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Exception;
 
 class SalaryController extends Controller
 {
@@ -34,13 +35,6 @@ class SalaryController extends Controller
         //return "hi";
         echo $request;
         $users = User::all();
-
-        //$dsalaries=DailySalary::all();
-        // foreach($dsalaries as $dsalary){
-        //     if($dsalary->saldate == $request->at_date){
-        //         return redirect('/attendance')->withErrors('Attendance for the day has been marked already');
-        //     }
-        // }
         echo $request->at_date;
         foreach ($users as $user){
             $qid="pr".$user->id;
@@ -65,13 +59,6 @@ class SalaryController extends Controller
                 else{
                     $dsal->incentives=0;
                 }
-                // try{
-                //     $dsal->save();
-                // }
-                // catch(\Exception $e){
-                //     // return redirect('/attendance')->withError($e->getMessage());
-                //     //return back()->withError($exception->getMessage())->withInput();
-                // }
                 $dsal->save();
                 return redirect('/attendance');
 
@@ -85,23 +72,61 @@ class SalaryController extends Controller
         //return redirect('/show');
     }
 
-    public function ajaxtest(Request $request)
+    public function v2attstore(Request $request)
     {
-            //return $request;
-            // $grocery = new Grocery();
-            // $grocery->name = $request->name;
-            // $grocery->type = $request->type;
-            // $grocery->price = $request->price;
+        if(!$request->at_date){
+            return "Error1";
+        }
+        $tdsals=DailySalary::where('saldate',$request->at_date)->first();
+        if($tdsals){
+            return "Error2";
+        }
+        $users = User::all();
+        foreach($request->at_details as $atkey => $atval){
+            $nm=$atval['name'];
+            foreach ($users as $user){
+                if($nm == $user->name){
+                    $status=0;
+                    if($atval['pr']){
+                        $status=1;
+                    }
 
-            // $grocery->save();
+                    if($status==1){
 
-            // return "response()->json(['success'=>'Data is successfully added'])";
-            return $request;
-            return "response()->json(['success'=>$request->pr1])";
+
+                        $user->experience*1000;
+                        $dsal=new DailySalary();
+                        $dsal->user_id=$user->id;
+                        $fsal=(int)$user->experience*1000;
+                        $dsal->saldate=$request->at_date;
+                        $dsal->fixed_salary=$fsal;
+                        if($atval['inc']){
+                            $dsal->incentives=$atval['inc'];
+                        }
+                        else{
+                            $dsal->incentives=0;
+                        }
+                        try{
+                            $dsal->save();
+                        }
+                        catch(Exception $e){
+                            return "Error2";
+                        }
+
+                        //return redirect('/attendance');
+
+                        echo "Saved";
+                        echo "<br>";
+                    }
+
+                }
+            }
+        }
+
+            return "response()->json(['success'=>'Added Successfully'])";
 
             //return "response()->json(['error'=>'Error'])";
     }
-
     public function __invoke(Request $request)
     {
         //

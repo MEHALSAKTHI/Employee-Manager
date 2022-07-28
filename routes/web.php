@@ -69,9 +69,8 @@ $router->group(['prefix' => 'v2'], function () use ($router) {
 
     #$router->get('/adminvalidate', 'SalaryController@adminvalidate');
 
-    $router->post('/attstore', 'SalaryController@att_store');
 
-    $router->post('/ajaxtest', 'SalaryController@ajaxtest');
+    $router->post('/attstore', 'SalaryController@v2attstore');
 });
 
 
