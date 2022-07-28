@@ -4,6 +4,7 @@
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
         <title>Employee Manager | Home</title>
         <style>
             .print {
@@ -36,11 +37,11 @@
                     </a>
                 </div>
             </div>
-            <div class="card my-5 mx-5 ">
+            <div class="card mt-5 mb-2 mx-5 ">
                 <h5 class="card-header">Employee Details</h5>
                 <div class=" mx-4 my-2">
                     <p class="font-weight-bold m-3">Total No. of employees: {{ sizeof($users) }}</p>
-                    <a class="btn btn-info mt-1 ml-3" href="msal">Calculate Monthly Salary</a>
+                    <a class="btn btn-info mt-1 ml-3" href="msal">Calculate Cummul. Salary</a>
                     <script>
                         function printDiv() {
                             //Get the HTML of div
@@ -57,53 +58,13 @@
                             document.body.innerHTML = oldPage;
 
                         }
-
-                    function exportDiv(){
-                        var table = document.getElementById("indextable");
-                        var rows =[];
-                        for(var i=0,row; row = table.rows[i];i++){
-                            column1 = row.cells[0].innerText;
-                            column2 = row.cells[1].innerText;
-                            column3 = row.cells[2].innerText;
-                            column4 = row.cells[3].innerText;
-                            column5 = row.cells[4].innerText;
-                            column6 = row.cells[5].innerText;
-
-                        /* add a new records in the array */
-                            rows.push(
-                                [
-                                    column1,
-                                    column2,
-                                    column3,
-                                    column4,
-                                    column5,
-                                    column6
-
-                                ]
-                            );
-
-                            }
-
-
-                            console.log(rows);
-
-                            csvContent = "data:text/csv;charset=utf-8,";
-                             /* add the column delimiter as comma(,) and each row splitted by new line character (\n) */
-                            rows.forEach(function(rowArray){
-                                row = rowArray.join(",");
-                                csvContent += row + "\r\n";
-                            });
-
-                            /* create a hidden <a> DOM node and set its download attribute */
-                            var encodedUri = encodeURI(csvContent);
-                            var link = document.createElement("a");
-                            link.setAttribute("href", encodedUri);
-                            link.setAttribute("download", "Employeedetails.csv");
-                            document.body.appendChild(link);
-                             /* download the data file named "Stock_Price_Report.csv" */
-                            link.click();
-                    }
-
+                        function ExportToExcel(type, fn, dl) {
+                            var elt = document.getElementById('indextable');
+                            var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+                            return dl ?
+                              XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+                              XLSX.writeFile(wb, fn || ('Employeedetails.' + (type || 'xlsx')));
+                         }
 
                 </script>
 
@@ -118,7 +79,7 @@
                                     <th scope="col">Name</th>
                                     <th scope="col">Experience</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Monthly Salary (AON)</th>
+                                    <th scope="col">Cummul. Salary (AON)</th>
                                     <th scope="col" class="text-center">Actions</th>
                                 </tr>
                                 </thead>
@@ -160,14 +121,16 @@
                             </table>
                         </div>
 
-                    <div class="text-right mr-3">
+
+                    </div>
+                    <div class="text-right mx-5 mb-3">
                         <button class="btn btn-dark mt-1 ml-1 " onclick="printDiv()">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
                             <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z"/>
                             <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
                             </svg>
                         </button>
-                        <button class="btn btn-dark mt-1 ml-1 " onclick="exportDiv()">
+                        <button class="btn btn-dark mt-1 ml-1 " onclick="ExportToExcel('xlsx')">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
                                 <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
                                 <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
@@ -175,8 +138,6 @@
                         </button>
 
                     </div>
-                    </div>
-
                 </div>
             </div>
         </div>
