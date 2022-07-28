@@ -48,7 +48,7 @@ $router->post('/attstore', 'SalaryController@att_store');
 
 // $router->get('/attendance/{date}', 'SalaryController@att_manage');
 
-$router->group(['prefix' => 'v1'], function () use ($router) {
+$router->group(['prefix' => 'v2'], function () use ($router) {
     $router->get('/', 'UserDataController@show');
 
     $router->get('/create', 'UserDataController@create');
@@ -70,6 +70,8 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     #$router->get('/adminvalidate', 'SalaryController@adminvalidate');
 
     $router->post('/attstore', 'SalaryController@att_store');
+
+    $router->post('/ajaxtest', 'SalaryController@ajaxtest');
 });
 
 

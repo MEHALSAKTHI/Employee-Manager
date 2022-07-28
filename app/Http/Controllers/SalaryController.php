@@ -79,8 +79,27 @@ class SalaryController extends Controller
                 echo "<br>";
             }
         }
+
+
         return redirect('/attendance');
         //return redirect('/show');
+    }
+
+    public function ajaxtest(Request $request)
+    {
+            //return $request;
+            // $grocery = new Grocery();
+            // $grocery->name = $request->name;
+            // $grocery->type = $request->type;
+            // $grocery->price = $request->price;
+
+            // $grocery->save();
+
+            // return "response()->json(['success'=>'Data is successfully added'])";
+            return $request;
+            return "response()->json(['success'=>$request->pr1])";
+
+            //return "response()->json(['error'=>'Error'])";
     }
 
     public function __invoke(Request $request)
