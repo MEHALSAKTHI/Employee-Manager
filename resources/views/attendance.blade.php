@@ -32,21 +32,7 @@
 
                 <div class="container">
 
-                    {{--  <form id="myForm">
-                       <div class="form-group">
-                         <label for="name">Name:</label>
-                         <input type="text" class="form-control" id="name">
-                       </div>
-                       <div class="form-group">
-                         <label for="type">Type:</label>
-                         <input type="text" class="form-control" id="type">
-                       </div>
-                       <div class="form-group">
-                          <label for="price">Price:</label>
-                          <input type="text" class="form-control" id="price">
-                        </div>
-                       <button class="btn btn-primary" id="ajaxSubmit">Submit</button>
-                     </form>  --}}
+
                  </div>
                  <script src="http://code.jquery.com/jquery-3.3.1.min.js"
                           integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -74,11 +60,7 @@
 
                                     arrData.push(obj);
                             });
-                                //alert(arrData);
-                            //console.log(arrData);
-
-
-
+                              s
                           $.ajaxSetup({
                              headers: {
                                  'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -110,18 +92,6 @@
                           });
                        });
                  </script>
-
-
-
-                {{--  @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif  --}}
 
                 <h5 class="card-header">Mark presence of employees:</h5>
                 <div class="container">
