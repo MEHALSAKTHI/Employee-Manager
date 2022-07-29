@@ -43,6 +43,7 @@
 
                                 <button type="submit" class="btn btn-success ">Submit</button>
 
+                                <a class="btn btn-primary " href="/">Back</a>
                             </form>
                         </div>
                       </div>

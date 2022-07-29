@@ -128,7 +128,8 @@
 
                             <form action="/attstore" class="d-inline" method="POST">
                                 <label for="date">Date of Attendance:</label>
-                                <input type="date" id="at_date" name="at_date" required>
+                                <input type="date" id="at_date" name="at_date" max="<?=date('Y-m-d')?>" required>
+                                {{--  <input type="date" name="bday" max="<?=date('Y-m-d')?>">  --}}
 
 
                                 <br><br>
@@ -138,7 +139,7 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Id</th>
                                         <th scope="col">Name</th>
-                                        <th scope="col" class="text-center">Present (any key)</th>
+                                        <th scope="col" class="text-center">Present</th>
                                         <th scope="col">Incentive</th>
                                     </tr>
                                     </thead>

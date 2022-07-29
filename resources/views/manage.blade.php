@@ -45,7 +45,7 @@
                                 {{--  <a class="btn btn-danger" href='delete\{{ $user->id }}'>Delete</a>  --}}
                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
                                     Delete
-                                  </button>
+                                </button>
 
                                   <!-- Modal -->
                                   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -67,7 +67,7 @@
                                       </div>
                                     </div>
                                   </div>
-
+                                  <a class="btn btn-primary " href="/">Back</a>
                             </form>
                         </div>
                       </div>

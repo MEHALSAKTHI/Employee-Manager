@@ -7,6 +7,8 @@ use App\Models\MonthlySalary;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Exception;
+use Illuminate\Support\Arr;
+use Carbon\Carbon;
 
 class SalaryController extends Controller
 {
@@ -20,7 +22,7 @@ class SalaryController extends Controller
     public function att_marker()
     {
         $users = User::all();
-        return view('attendance', compact('users'));
+        return view('attendance_mark', compact('users'));
     }
 
     // public function att_manage($date)
@@ -123,10 +125,100 @@ class SalaryController extends Controller
             }
         }
 
-            return "response()->json(['success'=>'Added Successfully'])";
+        return "response()->json(['success'=>'Added Successfully'])";
 
             //return "response()->json(['error'=>'Error'])";
     }
+
+    public function v2attreport(Request $request)
+    {
+        $users = User::all();
+        $dss = DailySalary::all();
+
+        $mnth = explode("-",$request->mnth)[1];
+        $dss = DailySalary::whereMonth('saldate', $mnth)->get();
+        // return $dss;
+        //$date = Carbon::createFromFormat('m/d/Y', $dss[0]->saldate);
+        $tdate= '01/'.$mnth.'/2022';
+        $month = Carbon::createFromFormat('d/m/Y', $tdate)->format('F');
+        // //return $dss[0]->user_id;
+        // $usrarr=(array)$users;
+
+        // return view('attendance_report', compact('users','month','dss'));
+        $usrdatarr=array();
+        foreach($users as $user){
+            $tmparr = array();
+            foreach($dss as $ds){
+                if($ds->user_id==$user->id){
+                    // if($itr==0){
+                    //     $usrdatarr
+                    // }
+                    array_push($tmparr,explode("-",$ds->saldate)[2]);
+                }
+            }
+            $usrdatarr[$user->id]=$tmparr;
+        }
+
+        $datuserarr=array();
+        foreach($dss as $ds){
+            $tmparr = array();
+            foreach($users as $user){
+                if($ds->user_id==$user->id){
+                    // if($itr==0){
+                    //     $usrdatarr
+                    // }
+                    array_push($tmparr,$user->id);
+                }
+            }
+            $datuserarr[explode("-",$ds->saldate)[2]]=$tmparr;
+        }
+
+        // return $usrdatarr;
+        // $usrdataobj=(object)$usrdatarr;
+        //$usrdataobj = json_decode(json_encode($usrdatarr), FALSE);
+        //$st="3";
+        // dd ($usrdatarr) ;
+        return view('attendance_report', compact('users','month','usrdatarr','datuserarr'));
+
+
+        // $users = User::all();
+        // $dss = DailySalary::all();
+        // $datelist = DailySalary::distinct('saldate')->get(['saldate']);
+        // $dates=array();
+        // foreach($datelist as $dateentry){
+        //     array_push($dates,  $dateentry['saldate']);
+        // }
+
+        // // foreach($datelist as $dateentry){
+        // //     $tmparr=explode("-",$dateentry['saldate']);
+        // //     $tmpstr=$tmparr[2]."-".$tmparr[1]."-".$tmparr[0];
+        // //     array_push($dates,  $tmpstr);
+        // // }
+
+        // sort($dates);
+
+        // for($i=0;$i<sizeof($dates);$i++){
+        //     $tmparr=explode("-",$dates[$i]);
+        //     $tmpstr=$tmparr[2]."-".$tmparr[1]."-".$tmparr[0];
+        //     $dates[$i]=$tmpstr;
+        // }
+
+        // //return $dates;
+        // $bundled_dates=array();
+        // $ctr=0;
+        // $tmparr=array();
+        // foreach($dates as $dateelem){
+        //     $ctr+=1;
+        //     if($ctr>10){
+        //         array_push($bundled_dates,$tmparr);
+        //         $tmparr=array();
+        //     }
+        //     array_push($tmparr,$dateelem);
+        // }
+        // return $bundled_dates;
+        // return view('attendance_report', compact('users','dss','dates'));
+    }
+
     public function __invoke(Request $request)
     {
         //

@@ -21,6 +21,7 @@
                     display:none;
                 }
             }
+
         </style>
     </head>
     <body>
@@ -32,9 +33,43 @@
                 <h1 class="text-left d-inline">Employee details Manager</h1>
                 <div class="text-right mr-5">
                     <a class="btn btn-success mt-2" href="create">Add Employee</a>
-                    <a class="btn btn-primary mx-1 mt-2 text-light" href="/attendance">
+                    <a class="btn btn-primary mx-1 mt-2 text-light" href="/attendance/add">
                         Mark Attendance
                     </a>
+                    {{--  <a class="btn btn-secondary mx-1 mt-2 text-light" href="v2/attendance/report">
+                        Attendance Reoprt
+                    </a>  --}}
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-secondary mt-2" data-toggle="modal" data-target="#exampleModal">
+                        Attendance Report
+                    </button>
+
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Attendance Report</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body text-left">
+                            <form action="/v2/attendance/report" method="POST">
+                                <fieldset>
+                                  <legend>Choose Month</legend>
+                                  <input type="month" name="mnth"><br /><br />
+                                  <input type="submit" class="btn btn-primary" max="<?=date('Y-m')?>" value="Submit">
+                                </fieldset>
+                              </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            {{--  <button type="button" class="btn btn-primary">Save changes</button>  --}}
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+
                 </div>
             </div>
             <div class="card mt-5 mb-2 mx-5 ">
@@ -44,17 +79,12 @@
                     <a class="btn btn-info mt-1 ml-3" href="msal">Calculate Cumm. Salary</a>
                     <script>
                         function printDiv() {
-                            //Get the HTML of div
                             var divElements = document.getElementById("printabletable").innerHTML;
-                            //Get the HTML of whole page
                             var oldPage = document.body.innerHTML;
-                            //Reset the page's HTML with div's HTML only
                             document.body.innerHTML =
                             "<html><head><title></title></head><body>" +
                             divElements + "</body>";
-                            //Print Page
                             window.print();
-                            //Restore orignal HTML
                             document.body.innerHTML = oldPage;
 
                         }
@@ -141,6 +171,7 @@
                 </div>
             </div>
         </div>
+        <div id="wave"></div>
     </body>
 </html>
 

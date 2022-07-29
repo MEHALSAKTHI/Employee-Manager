@@ -40,7 +40,7 @@ $router->get('/msal', 'UserDataController@totalmsalarycalc');
 
 $router->get('/msal/{id}', 'UserDataController@msalarycalc');
 
-$router->get('/attendance', 'SalaryController@att_marker');
+$router->get('/attendance/add', 'SalaryController@att_marker');
 
 #$router->get('/adminvalidate', 'SalaryController@adminvalidate');
 
@@ -65,7 +65,11 @@ $router->group(['prefix' => 'v2'], function () use ($router) {
 
     $router->get('/msal/{id}', 'UserDataController@msalarycalc');
 
-    $router->get('/attendance', 'SalaryController@att_marker');
+    $router->get('/attendance/add', 'SalaryController@att_marker');
+
+    // $router->get('/attendance/report', 'SalaryController@v2attreport');
+
+    $router->post('/attendance/report', 'SalaryController@v2attreport');
 
     #$router->get('/adminvalidate', 'SalaryController@adminvalidate');
 
