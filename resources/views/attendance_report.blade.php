@@ -22,6 +22,30 @@
 
         {{--  {{ $usrdataobj->st[0] }}  --}}
 
+        <script>
+            function myFunction() {
+              var input, filter, table, tr, td, i, txtValue;
+              input = document.getElementById("myInput");
+              filter = input.value.toUpperCase();
+              table = document.getElementById("reporttable");
+              tr = table.getElementsByTagName("tr");
+              for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                  txtValue = td.textContent || td.innerText;
+                  if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                  } else {
+                    tr[i].style.display = "none";
+                  }
+                }
+              }
+            }
+            </script>
+
+
+
+
         <div class="container my-3 mx-2">
             <div>
                 <h1 class="text-left d-inline">Employee details Manager</h1>
@@ -30,73 +54,89 @@
                 </div>
             </div>
             <div class="card my-5 mx-1">
-                <h5 class="card-header"> <b><h2 class="d-inline">{{ $month }}</h2></b> - Overall Monthly Attendance Report </h5>
+                <div class="card-header"> <h5><b><h2 class="d-inline">{{ $month }}</h2></b> Month Attendance Report </h5>
+                <div class="text-right">
+                    <input type="text" class="mx-1 " id="myInput" onkeyup="myFunction()" placeholder=' Search Names' >
+                </div>
+                </div>
                 <div class="container">
                     <div class="row">
                         <div class="table-responsive" >
-                            <table class="table m-2">
-                                <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Name</th>
-                                    @php
-                                        for ($i=1;$i<32;$i++){
-                                            echo "<th scope='col'>".$i."</th>";
-                                        }
-                                    @endphp
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    @foreach ($users as $user)
-                                    <tr class="vertical-align: middle">
-                                        <td>{{ $user->id }}</th>
-                                        <td>{{ $user->name }}</td>
 
+                                <table class="table m-2" name="reporttable" id="reporttable">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Name</th>
                                         @php
-                                        for ($i=1;$i<32;$i++){
-                                            $flag=0;
-                                            foreach($usrdatarr as $key1 => $value1){
-                                                if($key1==$user->id && $flag==0){
-                                                    foreach($value1 as $key2 => $value2){
-                                                        //echo $value2;
-                                                        if($i==$value2 ){
-                                                            $flag=1;
-                                                            echo "<td>".'<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="green" class="bi bi-check-lg " viewBox="0 0 16 16">
-                                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
-                                                              </svg>'."</td>";
+
+                                            if($mnth=='1'||$mnth=='3'||$mnth=='5'||$mnth=='7'||$mnth=='8'||$mnth=='10'||$mnth=='12'){
+                                                $dno=31;
+                                            }
+                                            else{
+                                                $dno=30;
+                                            }
+
+
+                                            for ($i=1;$i<$dno+1;$i++){
+                                                $timestamp=strtotime($yr."-".$mnth."-".$i);
+                                                $day = date('D',$timestamp);
+                                                echo "<th scope='col' class='text-center'>".$i."<br>".$day."</th>";
+                                            }
+                                        @endphp
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        @foreach ($users as $user)
+                                        <tr class="vertical-align: middle">
+                                            <td>{{ $user->id }}</th>
+                                            <td>{{ $user->name }}</td>
+
+                                            @php
+                                            for ($i=1;$i<$dno+1;$i++){
+                                                $flag=0;
+                                                foreach($usrdatarr as $key1 => $value1){
+                                                    if($key1==$user->id && $flag==0){
+                                                        foreach($value1 as $key2 => $value2){
+                                                            //echo $value2;
+                                                            if($i==$value2 ){
+                                                                $flag=1;
+                                                                echo "<td>".'<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="green" class="bi bi-check-lg " viewBox="0 0 16 16">
+                                                                    <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+                                                                  </svg>'."</td>";
+                                                            }
                                                         }
                                                     }
                                                 }
-                                            }
 
-                                            if($flag==0){
-                                                $flag2=0;
-                                                foreach($datuserarr as $key1 => $value1){
-                                                    if($key1==$i){
-                                                        $flag2=1;
-                                                        echo "<td>".'<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="red" class="bi bi-x" viewBox="0 0 16 16">
-                                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                                                          </svg>'."</td>";
+                                                if($flag==0){
+                                                    $flag2=0;
+                                                    foreach($datuserarr as $key1 => $value1){
+                                                        if($key1==$i){
+                                                            $flag2=1;
+                                                            echo "<td>".'<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="red" class="bi bi-x" viewBox="0 0 16 16">
+                                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                                              </svg>'."</td>";
+                                                        }
                                                     }
-                                                }
-                                                if($flag2==0){
-                                                    echo "<td class='text-primary   '>"."-"."</td>";
-                                                }
+                                                    if($flag2==0){
+                                                        echo "<td class='text-primary   '>"."-"."</td>";
+                                                    }
 
 
+                                                }
+                                                //echo "<td>"."x"."</td>";
                                             }
-                                            //echo "<td>"."x"."</td>";
-                                        }
-                                        @endphp
+                                            @endphp
 
+                                        </tr>
+
+                                        @endforeach
                                     </tr>
 
-                                    @endforeach
-                                </tr>
-
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
                         </div>
                     </div>
                 </div>

@@ -178,7 +178,10 @@ class SalaryController extends Controller
         //$usrdataobj = json_decode(json_encode($usrdatarr), FALSE);
         //$st="3";
         // dd ($usrdatarr) ;
-        return view('attendance_report', compact('users','month','usrdatarr','datuserarr'));
+        $yr=explode("-",$request->mnth)[0];
+
+
+       return view('attendance_report', compact('users','month','mnth','yr','usrdatarr','datuserarr'));
 
 
         // $users = User::all();
