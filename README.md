@@ -11,7 +11,7 @@ Details of Employees like biodata, attendance and salary can be organised in a c
 
 Storing, Updating, Deleting and Viewing all these data is well managed by light weight software frameworks. 
 
-Advanced Framewroks used here serve the purpose of efficient & quick functioning.
+Advanced Frameworks used here serve the purpose of efficient & quick functioning.
 
 -- This application is currently staged with its version v2 and added with few more features on the attendance module --
 
