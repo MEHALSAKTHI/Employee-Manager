@@ -25,6 +25,33 @@ class SalaryController extends Controller
         return view('attendance_mark', compact('users'));
     }
 
+    public function att_manage(Request $request)
+    {
+        $users = User::all();
+        $dss = DailySalary::all();
+        $chkdetails = array();
+        $incdetails = array();
+
+       // return $chkdetails;
+        //return $request->at_date;
+        if($dss){
+            foreach($dss as $ds){
+                if($ds->saldate==$request->at_date){
+                    array_push($chkdetails,$ds->user_id);
+                    array_push($incdetails,$ds->user_id."-".$ds->incentives);
+                }
+            }
+            $dt=$request->at_date;
+
+            $hdt=explode("-",$request->at_date)[2]."-".explode("-",$request->at_date)[1]."-".explode("-",$request->at_date)[0];
+            return view('attendance_manage', compact('users','incdetails','chkdetails','dt','hdt','dss'));
+        }
+        else{
+            echo "Attendance Not marked for the day";
+            return view('attendance_mark', compact('users'));
+        }
+    }
+
     // public function att_manage($date)
     // {
     //     $users = User::all();
@@ -70,9 +97,69 @@ class SalaryController extends Controller
         }
 
 
+
         return redirect('/attendance');
         //return redirect('/show');
     }
+
+    public function att_update(Request $request)
+    {
+        echo $request;
+        $users = User::all();
+        $dss = DailySalary::all();
+        $chkdetails = array();
+
+       // return $chkdetails;
+        //return $request->at_date;
+        if($dss){
+            foreach($dss as $ds){
+                if($ds->saldate==$request->at_date){
+                    $res=DailySalary::where('id',$ds->id)->delete();
+                }
+            }
+        }
+
+        foreach($request->at_details as $atkey => $atval){
+            $nm=$atval['name'];
+            foreach ($users as $user){
+                if($nm == $user->name){
+                    $status=0;
+                    if($atval['pr']==1){
+                        $status=1;
+                    }
+
+                    if($status==1){
+
+
+                        $user->experience*1000;
+                        $dsal=new DailySalary();
+                        $dsal->user_id=$user->id;
+                        $fsal=(int)$user->experience*1000;
+                        $dsal->saldate=$request->at_date;
+                        $dsal->fixed_salary=$fsal;
+                        if($atval['inc']){
+                            $dsal->incentives=$atval['inc'];
+                        }
+                        else{
+                            $dsal->incentives=0;
+                        }
+                        try{
+                            $dsal->save();
+                        }
+                        catch(Exception $e){
+                            return "Error2";
+                        }
+
+                        echo "Saved";
+                        echo "<br>";
+                    }
+
+                }
+            }
+        }
+
+    }
+
 
     public function v2attstore(Request $request)
     {

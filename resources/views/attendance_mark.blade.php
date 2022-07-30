@@ -99,7 +99,7 @@
                              method: 'post',
                              data: {
 
-                                at_date: jQuery('#at_date').val(),
+                                at_date: jQuery('#at_date1').val(),
                                 at_details: arrData
                                 //price: jQuery('#price').val()
                              },
@@ -127,8 +127,14 @@
 
                         <div class="m-3 px-3 mt-1" >
                             <div class="alert alert-success " id="alert" style="display:none"> Attendance Added Successfully</div>
-                            <div class="alert alert-warning  " id="nalert1" style="display:none"> Choose the Date</div>
-                            <div class="alert alert-danger  " id="nalert2" style="display:none"> Attendance Already marked</div>
+                            <div class="alert alert-warning  " id="nalert1" style="display:none" > Choose the Date</div>
+                            <div class="alert alert-danger  " id="nalert2" style="display:none">
+                                Attendance Already marked.. Try Updating..
+                                <form action="/v2/attendance/manage" method="POST">
+                                      <input type="date" id="at_date" name="at_date" value=@php echo date('Y-m-d'); @endphp class="mt-2" max="<?=date('Y-m-d')?>"   required>
+                                      <br><button type="submit" class=" mt-2 btn btn-danger text-light" >Update Attendance</button>
+                                </form>
+                            </div>
 
 
                             {{--  <script>
@@ -145,7 +151,7 @@
 
                             <form action="/attstore" class="d-inline" method="POST">
                                 <label for="date">Date of Attendance:</label>
-                                <input type="date" id="at_date" name="at_date" max="<?=date('Y-m-d')?>" required>
+                                <input type="date" id="at_date1" name="at_date1" value=@php echo date('Y-m-d'); @endphp max="<?=date('Y-m-d')?>" required>
                                 {{--  <input type="date" name="bday" max="<?=date('Y-m-d')?>">  --}}
                                 <span class="mx-2">
                                     <input type="button" class="btn btn-info" onclick='selects()' value="Select All"/>

@@ -13,6 +13,18 @@
     </head>
     <body>
 
+
+        {{--  <script>
+            $(document).ready(function(){
+              $("#hidebtn").click(function(){
+                $("table").hide();
+              });
+            });
+        </script>
+        <button id="hidebtn">Hide</button>
+        <h1>Hi</h1>  --}}
+
+
         <div class="container my-5 mx-4">
             <div>
                 <h1 class="text-left text-light d-inline">Employee details Manager</h1>
@@ -83,7 +95,7 @@
                          });
 
                         jQuery.ajax({
-                             url: "{{ url('/v2/attstore') }}",
+                             url: "{{ url('/v2/attendance/update') }}",
                              method: 'post',
                              data: {
 
@@ -114,7 +126,7 @@
                       <div class="col-8 pt-3" >
 
                         <div class="m-3 px-3 mt-1" >
-                            <div class="alert alert-success " id="alert" style="display:none"> Attendance Added Successfully</div>
+                            <div class="alert alert-success " id="alert" style="display:none"> Attendance Update Successfully</div>
                             <div class="alert alert-warning  " id="nalert1" style="display:none"> Choose the Date</div>
                             <div class="alert alert-danger  " id="nalert2" style="display:none"> Attendance Already marked</div>
 
@@ -132,9 +144,8 @@
                             </script>  --}}
 
                             <form action="/attstore" class="d-inline" method="POST">
-                                <label for="date">Date of Attendance:</label>
-                                <input type="date" id="at_date" name="at_date" max="<?=date('Y-m-d')?>" required>
-                                {{--  <input type="date" name="bday" max="<?=date('Y-m-d')?>">  --}}
+                                <label for="date">Date of Attendance: {{ $hdt }}</label>
+                                <input type="date" id="at_date" name="at_date" value={{ $dt  }} max="<?=date('Y-m-d')?>" hidden required>
                                 <span class="mx-2">
                                     <input type="button" class="btn btn-info" onclick='selects()' value="Select All"/>
                                     <input type="button" class="btn btn-info" onclick='deSelect()' value="Deselect All"/>
@@ -163,16 +174,37 @@
                                             <th scope="row" >{{ $ctr}}</th>
                                             <td>{{ $user->id }}</th>
                                             <td>{{ $user->name }}</td>
-
                                             <td class="text-center">
                                                 {{--  <input type="text" id="pr{{ $user->id }}" class="w-50 text-center" required name="pr{{ $user->id }}">  --}}
                                                 {{--  <input type="range" style="width:40px" id="pr{{ $user->id }}" name="pr{{ $user->id }}" min="0" max="1">  --}}
-                                                <input type="checkbox" id="pr{{ $user->id }}" name="chk" value="1">
+                                                @php
+                                                    $flag=0;
+                                                    foreach($chkdetails as $key1 => $value1){
+                                                        if($value1==$user->id){
+                                                            $flag=1;
+                                                            echo'<input type="checkbox" id="pr{{ $user->id }}" name="chk" value="1" checked>';
+                                                        }
+                                                    }
+                                                    if($flag==0){
+                                                        echo'<input type="checkbox" id="pr{{ $user->id }}" name="chk" value="1" >';
+                                                        echo'<input type="checkbox" id="pr{{ $user->id }}" name="chk" value="1" checked>';
+                                                    }
+                                                @endphp
+
+
                                                 {{--  <input type="radio" required class="mx-1" id="pr{{ $user->id }}" name="pr{{ $user->id }}" value="1">
                                                 <input type="radio" required id="pr{{ $user->id }}" class="mx-1" name="pr{{ $user->id }}" value="0">  --}}
                                             </td>
                                             <td>
-                                               <input type="text" id="inc{{ $user->id }}" class="w-75 text-center" name="inc{{ $user->id }}">
+
+                                                @php
+                                                    foreach($incdetails as $key1 => $value1){
+                                                        if($user->id == explode("-",$value1)[0]){
+                                                            echo'<input type="text" id="inc{{ $user->id }}" class="w-75 text-center" value='.explode("-",$value1)[1].' name="inc{{ $user->id }}">';
+                                                        }
+                                                    }
+                                                @endphp
+
                                             </td>
                                         </tr>
                                         @endforeach

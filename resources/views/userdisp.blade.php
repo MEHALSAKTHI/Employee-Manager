@@ -72,7 +72,7 @@
                                                 <fieldset>
                                                   <legend>Choose Month</legend>
                                                   <input type="month" name="mnth"><br /><br />
-                                                  <button type="submit" class="btn btn-success" max="<?=date('Y-m')?>" value="Submit">Generate</button>
+                                                  <button type="submit" class="btn btn-success" max="<?=date('Y-m')?>" value=@php echo date('Y-m-d'); @endphp value="Submit">Generate</button>
                                                 </fieldset>
                                               </form>
                                         </div>
@@ -90,6 +90,49 @@
                             </div>
                         </div>
                         </div>
+
+                        <button type="button" class="btn btn-warning text-light" data-toggle="modal" data-target="#exampleModal2">
+                            Update Attendance
+                        </button>
+
+                        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel2">Update Attendance</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body text-left">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <form action="/v2/attendance/manage" method="POST">
+                                                <fieldset>
+                                                  <legend>Choose Date</legend>
+                                                  <input type="date" id="at_date" name="at_date" max="<?=date('Y-m-d')?>" value=@php echo date('Y-m-d'); @endphp required>
+
+                                                  <button type="submit" class="btn btn-warning text-light mt-3"  value="Submit">Update</button>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                        <div class="col-6 ">
+                                                {{--  <img class="img-fluid " src="{{ asset('emp.png') }}">  --}}
+                                                <img class="img-fluid" src="/images/cal.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+
+
 
                     </div>
 
