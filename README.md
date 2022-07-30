@@ -1,7 +1,7 @@
 # EmplyMgr V2
 
 
-Managing details of employees is a very important and hectic task for all companies, institutions and organisations. This is generally done on paper and this has several serious disadvantages. Preservation of these documents must be ensured and have to stored in a safe place. 
+Managing details of employees is a very important and hectic task for all companies, institutions and organisations. This is generally done on paper and this has several serious disadvantages. Preservation of these documents must be ensured and have to be stored in a safe place. 
 
 These data once lost is lost..!
 
