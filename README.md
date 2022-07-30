@@ -9,7 +9,7 @@ EmplyMgr serves this issue very well.
 
 Details of Employees like biodata, attendance and salary can be organised in a clear and safe way. 
 
-Storing, Updating, Deleting and Viewing all these data is well managed but light weight software frameworks. 
+Storing, Updating, Deleting and Viewing all these data is well managed by light weight software frameworks. 
 
 Advanced Framewroks used here serve the purpose of efficient & quick functioning.
 
