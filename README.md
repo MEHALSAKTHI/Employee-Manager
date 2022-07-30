@@ -1,24 +1,29 @@
-# Lumen PHP Framework
+# EmplyMgr V2
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel/lumen-framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://img.shields.io/packagist/v/laravel/lumen-framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://img.shields.io/packagist/l/laravel/lumen)](https://packagist.org/packages/laravel/lumen-framework)
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+Managing details of employees is a very important and hectic task for all companies, institutions and organisations. This is generally done on paper and this has several serious disadvantages. Preservation of these documents must be ensured and have to stored in a safe place. 
 
-## Official Documentation
+These data once lost is lost..!
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+EmplyMgr serves this issue very well. 
 
-## Contributing
+Details of Employees like biodata, attendance and salary can be organised in a clear and safe way. 
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Storing, Updating, Deleting and Viewing all these data is well managed but light weight software frameworks. 
 
-## Security Vulnerabilities
+Advanced Framewroks used here serve the purpose of efficient & quick functioning.
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+-- This application is currently staged with its version v2 and added with few more features on the attendance module --
 
-## License
+There is still a greater scope for this project and the expansional development is still in progress..
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Interested in contributing?? 
+mailto mehalsakthi@gmail.com
+
+
+
+
+
+
+
+
