@@ -73,13 +73,9 @@ $router->group(['prefix' => 'v2'], function () use ($router) {
 
     #$router->get('/adminvalidate', 'SalaryController@adminvalidate');
 
-
     $router->post('/attstore', 'SalaryController@v2attstore');
+
+    $router->get('/attendance/manage', 'SalaryController@att_update');
+
 });
-
-
-
-
-
-
 

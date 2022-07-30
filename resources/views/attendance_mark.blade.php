@@ -5,7 +5,11 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
         <title>Employee Manager | Attendance</title>
-
+        <style>
+            body{
+                background-image: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            }
+        </style>
     </head>
     <body>
 
@@ -21,23 +25,36 @@
         <h1>Hi</h1>  --}}
 
 
-        <div class="container my-3 mx-4">
+        <div class="container my-5 mx-4">
             <div>
-                <h1 class="text-left d-inline">Employee details Manager</h1>
-                <div class="text-right">
-                    <a class="btn btn-secondary mt-2" href="/">View All Employees</a>
-                </div>
+                <h1 class="text-left text-light d-inline">Employee details Manager</h1>
+
             </div>
-            <div class="card my-5 mx-5">
+            <div class="card my-5 mx-5 ">
 
-                <div class="container">
-
-
-                 </div>
                  <script src="http://code.jquery.com/jquery-3.3.1.min.js"
                           integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
                           crossorigin="anonymous">
                  </script>
+
+                 <script type="text/javascript">
+                    function selects(){
+                        var ele=document.getElementsByName('chk');
+                        for(var i=0; i<ele.length; i++){
+                            if(ele[i].type=='checkbox')
+                                ele[i].checked=true;
+                        }
+                    }
+                    function deSelect(){
+                        var ele=document.getElementsByName('chk');
+                        for(var i=0; i<ele.length; i++){
+                            if(ele[i].type=='checkbox')
+                                ele[i].checked=false;
+
+                        }
+                    }
+                </script>
+
                  <script>
                     jQuery(document).ready(function(){
                        jQuery('#ajaxSubmit').click(function(e){
@@ -130,7 +147,10 @@
                                 <label for="date">Date of Attendance:</label>
                                 <input type="date" id="at_date" name="at_date" max="<?=date('Y-m-d')?>" required>
                                 {{--  <input type="date" name="bday" max="<?=date('Y-m-d')?>">  --}}
-
+                                <span class="mx-2">
+                                    <input type="button" class="btn btn-info" onclick='selects()' value="Select All"/>
+                                    <input type="button" class="btn btn-info" onclick='deSelect()' value="Deselect All"/>
+                                </span>
 
                                 <br><br>
                                 <table class="table" name="at_table" id="at_table">
@@ -159,7 +179,7 @@
                                             <td class="text-center">
                                                 {{--  <input type="text" id="pr{{ $user->id }}" class="w-50 text-center" required name="pr{{ $user->id }}">  --}}
                                                 {{--  <input type="range" style="width:40px" id="pr{{ $user->id }}" name="pr{{ $user->id }}" min="0" max="1">  --}}
-                                                <input type="checkbox" id="pr{{ $user->id }}" name="pr{{ $user->id }}" value="1">
+                                                <input type="checkbox" id="pr{{ $user->id }}" name="chk" value="1">
                                                 {{--  <input type="radio" required class="mx-1" id="pr{{ $user->id }}" name="pr{{ $user->id }}" value="1">
                                                 <input type="radio" required id="pr{{ $user->id }}" class="mx-1" name="pr{{ $user->id }}" value="0">  --}}
                                             </td>
@@ -173,7 +193,7 @@
                                     </tbody>
                                 </table>
 
-                                <button type="reset" class="btn btn-primary text-light" href="/attendance" >
+                                <button type="reset" class="btn btn-secondary text-light" href="/attendance" >
                                     <div class="pt-2 d-inline">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" fill="currentColor" class="bi bi-arrow-clockwise " viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
@@ -185,6 +205,7 @@
 
                             </form>
                             <button class="btn btn-success" id="ajaxSubmit">Submit</button>
+                            <a class="btn btn-primary " href="/">Back</a>
 
                         </div>
                       </div>
