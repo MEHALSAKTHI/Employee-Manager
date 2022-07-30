@@ -187,7 +187,6 @@
                                                     }
                                                     if($flag==0){
                                                         echo'<input type="checkbox" id="pr{{ $user->id }}" name="chk" value="1" >';
-                                                        echo'<input type="checkbox" id="pr{{ $user->id }}" name="chk" value="1" checked>';
                                                     }
                                                 @endphp
 
@@ -198,10 +197,15 @@
                                             <td>
 
                                                 @php
+                                                    $flag=0;
                                                     foreach($incdetails as $key1 => $value1){
                                                         if($user->id == explode("-",$value1)[0]){
+                                                            $flag=1;
                                                             echo'<input type="text" id="inc{{ $user->id }}" class="w-75 text-center" value='.explode("-",$value1)[1].' name="inc{{ $user->id }}">';
                                                         }
+                                                    }
+                                                    if($flag==0){
+                                                        echo'<input type="text" id="inc{{ $user->id }}" class="w-75 text-center" name="inc{{ $user->id }}">';
                                                     }
                                                 @endphp
 
@@ -213,7 +217,7 @@
                                     </tbody>
                                 </table>
 
-                                <button type="reset" class="btn btn-secondary text-light" href="/attendance" >
+                                {{--  <button type="reset" class="btn btn-secondary text-light" href="/attendance" >
                                     <div class="pt-2 d-inline">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" fill="currentColor" class="bi bi-arrow-clockwise " viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
@@ -221,11 +225,11 @@
                                             </svg>
                                     </div>
                                     &nbspRefresh Entry
-                                </button >
+                                </button >  --}}
 
                             </form>
-                            <button class="btn btn-success" id="ajaxSubmit">Submit</button>
-                            <a class="btn btn-primary " href="/">Back</a>
+                            <button class="btn btn-success m-1" id="ajaxSubmit">Submit</button>
+                            <a class="btn btn-primary m-1" href="/">Back</a>
 
                         </div>
                       </div>
